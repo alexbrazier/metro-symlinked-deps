@@ -5,10 +5,17 @@ const fs = require('fs');
 const util = require('util');
 const getDevPaths = require('get-dev-paths');
 const { mergeConfig: metroMergeConfig } = require('metro-config');
-const generateMetroConfigBlacklistRE = require('metro-config/src/defaults/blacklist');
 const escapeForRegExp = require('escape-string-regexp');
 const chalk = require('chalk');
-const { has } = require('ramda');
+
+let generateMetroConfigBlacklistRE;
+
+// Handle rename in different versions
+try {
+    generateMetroConfigBlacklistRE = require('metro-config/src/defaults/exclusionList');
+} catch {
+    generateMetroConfigBlacklistRE = require('metro-config/src/defaults/blacklist');
+}
 
 /**
  * Wraps metro-config's mergeConfig function in order to remove the `symbolicator` field that's
@@ -191,7 +198,7 @@ function generateRootNodeModulesResolverConfig(
                         );
                     };
                 }
-                return typeof name === 'symbol' || has(name, target)
+                return typeof name === 'symbol' || target[name]
                     ? target[name]
                     : path.join(projectRoot, `node_modules/${name}`);
             },

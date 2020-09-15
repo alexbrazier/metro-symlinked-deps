@@ -15,9 +15,9 @@ jobs:
             - name: Test
               run: yarn test
             # Attempt release if we're on master
-            - name: Release
-              if: github.ref == 'refs/heads/master'
-              run: yarn run release-ci
-              env:
-                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+            # - name: Release
+            #   if: github.ref == 'refs/heads/master'
+            #   run: yarn run release-ci
+            #   env:
+            #       GH_TOKEN: ${{ secrets.GH_TOKEN }}
+            #       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,10 +1,15 @@
-# `@carimus/metro-symlinked-deps`
+# metro-symlinked-deps
 
 Utilities to customize the [`metro`](https://github.com/facebook/metro) bundler configuration in order to workaround
 its lack of support for symlinks.
 
 The primary use case for this package is to support development on react native dependencies using `yarn link` or
 `npm link`.
+
+## Changes from original
+
+-   Updated dependencies
+-   Made metro-config a peer dependency so it will work with multiple version without installing duplicate dependencies
 
 ## Motivation
 
@@ -25,7 +30,7 @@ degrees. This is the one that worked for us that we're going to re-use until it'
 Install as a dev dependency using `npm` or `yarn`:
 
 ```shell script
-yarn add --dev @carimus/metro-symlinked-deps
+yarn add --dev metro-symlinked-deps
 ```
 
 ### Option 1: Automatic
@@ -41,7 +46,7 @@ the list, you can safely use the single `applyConfigForLinkedDependencies` funct
     ```javascript
     const {
         applyConfigForLinkedDependencies,
-    } = require('@carimus/metro-symlinked-deps');
+    } = require('metro-symlinked-deps');
 
     module.exports = applyConfigForLinkedDependencies(
         {
@@ -84,9 +89,7 @@ the list, you can safely use the single `applyConfigForLinkedDependencies` funct
 This setup should work for an out of the box react-native 0.60+ project:
 
 ```javascript
-const {
-    applyConfigForLinkedDependencies,
-} = require('@carimus/metro-symlinked-deps');
+const { applyConfigForLinkedDependencies } = require('metro-symlinked-deps');
 
 module.exports = applyConfigForLinkedDependencies(
     {
